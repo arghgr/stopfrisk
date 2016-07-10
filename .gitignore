@@ -1,0 +1,15 @@
+# Mac OS X
+.DS_Store
+
+# Node
+node_modules
+build
+npm-debug.log
+
+# Config/Credentials
+credentials.js
+credentials.local.js
+credentials.staging.js
+credentials.production.js
+config.js
+config.local.js
