@@ -13,3 +13,6 @@ credentials.staging.js
 credentials.production.js
 config.js
 config.local.js
+
+public/main.css
+generated

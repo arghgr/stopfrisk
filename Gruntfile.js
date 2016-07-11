@@ -10,7 +10,7 @@ module.exports = grunt => {
       },
       dist: {
         files: {
-          'main.css': 'scss/main.scss'
+          'public/main.css': 'scss/main.scss'
         }
       }
     },
@@ -20,7 +20,7 @@ module.exports = grunt => {
         tasks: ['sass']
       },
       livereload: {
-        files: ['scss/*.scss'],
+        files: ['*.js', '*.html', 'scss/*.scss'],
         livereload: true
       }
     }
