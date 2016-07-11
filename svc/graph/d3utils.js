@@ -2,7 +2,7 @@ var fs = require('fs');
 var d3 = require('d3');
 var jsdom = require('jsdom');
 
-exports.graphMaker = (res, pieData, fileName)=> {
+exports.generatePieGraph = (res, pieData, fileName)=> {
 
   if(!pieData) pieData = [12,31];
   if(!fileName) fileName = 'test';
@@ -66,12 +66,12 @@ exports.graphMaker = (res, pieData, fileName)=> {
 
       // Select SVG's resulting HTML
       var html = window.d3.select("svg")
-        .attr("title", "graph")
+        .attr("title", fileName)
         .attr("version", 1.1)
         .attr("xmlns", "http://www.w3.org/2000/svg")
         .node().parentNode.innerHTML;
 
-      // Send HTML with response
+      // Send SVG with response
       fs.writeFileSync(fileName, html)
       res.writeHead(200, {'Content-Type': 'image/svg+xml'});
       res.end(html);
