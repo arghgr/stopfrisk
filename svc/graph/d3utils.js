@@ -2,12 +2,13 @@ var fs = require('fs');
 var d3 = require('d3');
 var jsdom = require('jsdom');
 
-exports.graphMaker = (res, pieData, outputLocation)=> {
+exports.graphMaker = (res, pieData, fileName)=> {
   console.log('graphMaker() pieData: ', pieData);
-  console.log('graphMaker() outputLocation: ', outputLocation);
+  console.log('graphMaker() fileName: ', fileName);
 
   if(!pieData) pieData = [12,31];
-  if(!outputLocation) outputLocation = 'generated/test.svg';
+  if(!fileName) fileName = 'test';
+  fileName = 'generated/' + fileName + '.svg';
   jsdom.env({
     html:'',
     features:{ QuerySelector:true }, //you need query selector for D3 to work
@@ -27,7 +28,7 @@ exports.graphMaker = (res, pieData, outputLocation)=> {
 
       //write out the children of the container div
       var graph = window.d3.select('body').html();
-      fs.writeFileSync(outputLocation, graph) //using sync to keep the code simple
+      fs.writeFileSync(fileName, graph) //using sync to keep the code simple
       res.writeHead(200, {'Content-Type': 'image/svg'});
       res.end(graph);
     }

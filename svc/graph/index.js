@@ -1,8 +1,8 @@
-var postGraph = require('./postGraph').postGraph;
+var getGraph = require('./getGraph').getGraph;
 var bodyparser = require('body-parser');
 
 const router = require('express').Router();
 
-router.post(/\/?/, bodyparser.json(), postGraph);
+router.get(/\/?/, bodyparser.json(), getGraph);
 
 module.exports = router;
