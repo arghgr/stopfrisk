@@ -4,10 +4,10 @@ var jsdom = require('jsdom');
 
 exports.generatePieGraph = (res, data, fileName)=> {
 
-  if(!fileName) fileName = 'test';
+  if (!fileName) fileName = 'test';
   fileName = 'generated/' + fileName + '.svg';
 
-  if(!data) data = [
+  if (!data) data = [
     { "name": "B", "number": 1856 },
     { "name": "Q", "number": 677 },
     { "name": "A", "number": 255 },
