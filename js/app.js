@@ -3,22 +3,24 @@ var request = require('superagent');
 document.addEventListener('DOMContentLoaded', ()=> {
   console.log('working');
 
-  resultBtn.addEventListener('click', ()=> {
+  resultBtn.addEventListener('click', (ev)=> {
+    ev.preventDefault();
     console.log('resultBtn clicked');
-    getResult()
+    getResult(document.getElementById('paramId').value)
     .then(result => {
       console.log('getResult() result: ', result);
       document.getElementById('resultDiv').innerHTML = JSON.stringify(result);
+    })
+    .catch(error => {
+      console.log('error: ', error);
     });
   });
 });
 
-function getResult() {
+function getResult(paramId) {
   return new Promise((resolve, reject)=> {
-    var id = 85;
     request
-    .get('svc/data/' + id)
-    .send()
+    .get('/svc/data/' + paramId)
     .end((err, res)=> {
       try {
         let response = res.body;
