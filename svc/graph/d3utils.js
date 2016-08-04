@@ -2,13 +2,12 @@ var fs = require('fs');
 var d3 = require('d3');
 var jsdom = require('jsdom');
 
-exports.generatePieGraph = (res, pieData, fileName)=> {
+exports.generatePieGraph = (res, data, fileName)=> {
 
-  if(!pieData) pieData = [12,31];
   if(!fileName) fileName = 'test';
   fileName = 'generated/' + fileName + '.svg';
 
-  var data = [
+  if(!data) data = [
     { "name": "B", "number": 1856 },
     { "name": "Q", "number": 677 },
     { "name": "A", "number": 255 },
