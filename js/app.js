@@ -4,7 +4,12 @@ document.addEventListener('DOMContentLoaded', ()=> {
   console.log('working');
 
   resultBtn.addEventListener('click', ()=> {
-    getResult();
+    console.log('resultBtn clicked');
+    getResult()
+    .then(result => {
+      console.log('getResult() result: ', result);
+      document.getElementById('resultDiv').innerHTML = JSON.stringify(result);
+    });
   });
 });
 
