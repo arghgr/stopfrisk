@@ -14,5 +14,5 @@ credentials.production.js
 config.js
 config.local.js
 
-public/main.css
+public/main.*
 generated

@@ -9,15 +9,23 @@ module.exports = grunt => {
         sourceMap: false
       },
       dist: {
-        files: {
-          'public/main.css': 'scss/main.scss'
-        }
+        files: { 'public/main.css': 'scss/main.scss' }
+      }
+    },
+    browserify: {
+      main: {
+        src: 'js/app.js',
+        dest: 'public/main.js'
       }
     },
     watch: {
       sass: {
         files: 'scss/*.scss',
         tasks: ['sass']
+      },
+      browserify: {
+        files: 'js/*.js',
+        tasks: ['default']
       },
       livereload: {
         files: ['*.js', '*.html', 'scss/*.scss'],
@@ -26,9 +34,10 @@ module.exports = grunt => {
     }
   });
 
-  grunt.registerTask('default', ['watch']);
+  grunt.registerTask('default', ['browserify', 'watch']);
   grunt.registerTask('dev', ['sass']);
   grunt.loadNpmTasks('grunt-sass');
+  grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks('grunt-contrib-watch');
 
 }
