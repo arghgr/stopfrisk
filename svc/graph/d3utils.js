@@ -2,21 +2,12 @@ var fs = require('fs');
 var d3 = require('d3');
 var jsdom = require('jsdom');
 
-exports.generatePieGraph = (res, data, fileName)=> {
+exports.generatePieGraph = (res, data)=> {
 
-  if (!fileName) fileName = 'test';
-  fileName = 'generated/' + fileName + '.svg';
-
-  if (!data) data = [
-    { "name": "B", "number": 1856 },
-    { "name": "Q", "number": 677 },
-    { "name": "A", "number": 255 },
-    { "name": "W", "number": 203 },
-    { "name": "P", "number": 200 },
-    { "name": "Z", "number": 58 },
-    { "name": "I", "number": 19 },
-    { "name": "U", "number": 9 }
-  ];
+  var dataArray = [];
+  Object.keys(data).forEach(key => {
+    dataArray.push(data[key]);
+  });
 
   jsdom.env({
     html:'',
@@ -24,7 +15,7 @@ exports.generatePieGraph = (res, data, fileName)=> {
     done: (errors, window)=> {
       window.d3 = d3.select(window.document); // Get D3 into the dom
 
-      var arcs = d3.pie().value((d)=> { return d.number; })(data); // Turn data into pie drawing data
+      var arcs = d3.pie().value((d)=> { return d.number; })(dataArray); // Turn data into pie drawing data
 
       var width = 500,
           height = 500,
@@ -65,13 +56,12 @@ exports.generatePieGraph = (res, data, fileName)=> {
 
       // Select SVG's resulting HTML
       var html = window.d3.select("svg")
-        .attr("title", fileName)
+        .attr("title", "graph")
         .attr("version", 1.1)
         .attr("xmlns", "http://www.w3.org/2000/svg")
         .node().parentNode.innerHTML;
 
       // Send SVG with response
-      fs.writeFileSync(fileName, html)
       res.writeHead(200, {'Content-Type': 'image/svg+xml'});
       res.end(html);
     }

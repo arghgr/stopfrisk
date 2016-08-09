@@ -3,12 +3,9 @@ var err = require('../utils').err;
 
 exports.getPieGraph = (req, res, next)=> {
   try {
-    var id = req.params.id;
-    var params = req.params;
-    var data = params.data;
-    d3utils.generatePieGraph(res, data, 'graph');
+    d3utils.generatePieGraph(res, req.query);
   } catch (e) {
     console.log(e);
-    next(err(500), 'Error for id ' + id + ': ' + e, null);
+    next(err(500), 'getPieGraph error:' + e, null);
   }
 }
