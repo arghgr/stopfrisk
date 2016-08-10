@@ -2,21 +2,33 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <title>NYPD Stop/Frisk Grapher</title>
+    <title>2015 NYPD Stop/Frisk Data Grapher</title>
     <link rel="stylesheet" href="main.css">
   </head>
   <body>
-    <div>Enter crime code:</div>
-    <form class="form-inline">
-      <div class="form-group">
-        <input id="paramId" type="number" class="form-control" placeholder="param id">
+    <div class="container">
+      <div class="row">
+        <div class="col-6">
+          <h3>2015 NYPD Stop/Frisk Data Grapher</h3>
+        </div>
+        <div class="col-6">
+          <form class="form-inline">
+            <div class="form-group">
+              <label for="paramId">Enter Crime Code:</label>
+              <select id="paramId" class="form-control"></select>
+            </div>
+            <button id="resultBtn" class="btn btn-default">Click for Result</button>
+          </form>
+        </div>
       </div>
-      <button id="resultBtn" class="btn btn-default">Click for Result</button>
-    </form>
-    <br />Result:
-    <div id="resultDiv"></div>
-    <div id="resultGraphDiv"></div>
-
+      <div class="row">
+        <div class="col-12">
+          <h4>Result:</h4>
+          <p id="resultDiv"></p>
+          <div id="resultGraphDiv"></div>
+        </div>
+      </div>
+    </div>
 
     <script src="main.js"></script>
   </body>

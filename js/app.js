@@ -1,11 +1,22 @@
 var request = require('superagent');
 
+
 document.addEventListener('DOMContentLoaded', ()=> {
+  getLabels()
+  .then(labels => {
+    Object.keys(labels).forEach(key => {
+      var option = document.createElement('option');
+      option.text = key + ': ' + labels[key];
+      option.value = key;
+      document.getElementById('paramId').appendChild(option);
+    });
+  });
+
   resultBtn.addEventListener('click', (ev)=> {
     ev.preventDefault();
     getResult(document.getElementById('paramId').value)
     .then(result => {
-      document.getElementById('resultDiv').innerHTML = JSON.stringify(result);
+      // document.getElementById('resultDiv').innerHTML = JSON.stringify(result);
       return getGraphData(result);
     })
     .then(graphData => {
@@ -17,6 +28,22 @@ document.addEventListener('DOMContentLoaded', ()=> {
   });
 });
 
+function getLabels() {
+  return new Promise((resolve, reject)=> {
+    request
+    .get('/svc/data/labels/')
+    .end((err, res)=> {
+      try {
+        let response = res.body;
+        resolve(response);
+      } catch (err) {
+        console.error(err);
+        reject(err);
+      }
+    });
+  });
+};
+
 function getResult(paramId) {
   return new Promise((resolve, reject)=> {
     request
@@ -24,7 +51,6 @@ function getResult(paramId) {
     .end((err, res)=> {
       try {
         let response = res.body;
-        console.log('getResult() response: ', response);
         resolve(response);
       } catch (err) {
         console.error(err);
