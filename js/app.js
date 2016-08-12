@@ -16,7 +16,6 @@ document.addEventListener('DOMContentLoaded', ()=> {
     ev.preventDefault();
     getResult(document.getElementById('paramId').value)
     .then(result => {
-      // document.getElementById('resultDiv').innerHTML = JSON.stringify(result);
       return getGraphData(result);
     })
     .then(graphData => {
@@ -47,7 +46,8 @@ function getLabels() {
 function getResult(paramId) {
   return new Promise((resolve, reject)=> {
     request
-    .get('/svc/data/' + paramId)
+    .get('/svc/data/')
+    .query({ sortBy: 'race', year: 2015, filters: { 'detailCM': 85, 'arstmade': 'N' } })
     .end((err, res)=> {
       try {
         let response = res.body;

@@ -6,22 +6,34 @@ var db = require('../../data/db');
 
 var DEBUG = false;
 
+function createDbQuery(query) {
+  var sortBy = query.sortBy;
+  var year = query.year;
+  var filters = query.filters;
+  var filterQuery = [];
+  Object.keys(filters).forEach(filter => {
+    if (DEBUG) console.log(filter + ` = ` + JSON.stringify(filters[filter]) + ` `);
+    filterQuery.push(filter + ` = ` + JSON.stringify(filters[filter]) + ` `);
+  });
+  var dbQuery = `SELECT DISTINCT ` + sortBy + ` AS name, ` +
+    `COUNT(` + sortBy + `) AS number FROM ` + year + `stopfrisk ` +
+    `WHERE ` +  filterQuery.join(`AND `) +
+    `GROUP BY ` + sortBy + ` ` +
+    `ORDER BY COUNT(` + sortBy + `) DESC;`;
+  return dbQuery;
+};
+
 exports.getData = (req, res, next)=> {
   if (DEBUG) console.log('exports.getData');
   var connection = null;
   try {
-    var id = req.params.id;
-    var params = req.params;
-    if (DEBUG) console.log('req.params: ', req.params);
-    var query = 'SELECT DISTINCT race AS name, COUNT(race) AS number FROM 2015stopfrisk ' +
-      'WHERE detailCM = ' + id + ' ' +
-      'GROUP BY race ' +
-      'ORDER BY COUNT(race) DESC;';
-    if (DEBUG) console.log('query: ', query);
+    if (DEBUG) console.log('req.query: ', req.query);
+    var dbQuery = createDbQuery(req.query);
+    if (DEBUG) console.log('dbQuery: ', dbQuery);
     db.getConnection()
     .then(conn => {
       connection = conn;
-      return db.queryConnection(connection, query, params);
+      return db.queryConnection(connection, dbQuery, req.params);
     })
     .then(result => {
       if (connection) connection.release();
@@ -32,7 +44,7 @@ exports.getData = (req, res, next)=> {
   } catch (e) {
     if (connection) connection.release();
     console.error(e);
-    next(err(500), 'Error for id ' + id + ': ' + e, null);
+    next(err(500), 'Error: ' + e, null);
   }
 }
 
