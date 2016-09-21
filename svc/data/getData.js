@@ -54,11 +54,13 @@ exports.getData = (req, res, next)=> {
         if (labelResult[result.name] !== undefined) result.name = labelResult[result.name];
       });
       if (DEBUG) console.log('dbResult: ', dbResult);
-
       res.send(dbResult);
+      
+      if (connection) connection.release();
     })
     .catch(error => { throw error; });
   } catch (e) {
+    if (connection) connection.release();
     console.error(e);
     next(err(500), 'Error: ' + e, null);
   } finally {
