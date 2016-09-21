@@ -1,6 +1,3 @@
-var fs = require('fs');
-var parse = require('csv-parse');
-
 var err = require('../utils').err;
 var db = require('../../data/db');
 
@@ -36,38 +33,60 @@ exports.getData = (req, res, next)=> {
       return db.queryConnection(connection, dbQuery, req.params);
     })
     .then(result => {
-      if (connection) connection.release();
       if (DEBUG) console.log('result: ', result);
       res.send(result);
     })
     .catch(error => { throw error; });
   } catch (e) {
-    if (connection) connection.release();
     console.error(e);
     next(err(500), 'Error: ' + e, null);
+  } finally {
+    if (connection) connection.release();
   }
 }
 
-exports.getLabels = (req, res, next)=> {
+exports.getFilterOptions = (req, res, next)=> {
+  var connection = null;
   try {
-    var parser = parse({ delimiter: ',' });
-    var file = __dirname + '/labels/2015detailCM.csv';
-    var output = {};
-
-    var input = fs.createReadStream(file)
-    .on('data', (chunk)=> {
-      parser.write(chunk);
-      parser.on('readable', (record)=> {
-        while (record = parser.read()) {
-          output[record[0]] = record[1];
-        }
-      });
-      parser.end();
+    if (DEBUG) console.log('getFilterOptions req.query: ', req.query);
+    var dbQuery = 'SELECT DISTINCT ' + req.query.filter +
+    ' FROM ' + req.query.year + 'stopfrisk;';
+    db.getConnection()
+    .then(conn => {
+      connection = conn;
+      return db.queryConnection(connection, dbQuery, req.params);
     })
-    .on('end', ()=> { res.send(output); })
-    .on('error', (err)=> { throw err; });
+    .then(result => {
+      if (connection) connection.release();
+      res.send(result.map(r => r[req.query.filter]));
+    })
+    .catch(error => { throw error; });
   } catch (e) {
     console.error(e);
     next(err(500), 'Error: ' + e, null);
+  } finally {
+    if (connection) connection.release();
+  }
+};
+
+exports.getSortOptions = (req, res, next)=> {
+  var connection = null;
+  try {
+    var dbQuery = 'SHOW COLUMNS FROM 2015stopfrisk;';
+    db.getConnection()
+    .then(conn => {
+      connection = conn;
+      return db.queryConnection(connection, dbQuery, req.params);
+    })
+    .then(result => {
+      if (connection) connection.release();
+      res.send(result.map(r => r['Field']));
+    })
+    .catch(error => { throw error; });
+  } catch (e) {
+    console.error(e);
+    next(err(500), 'Error: ' + e, null);
+  } finally {
+    if (connection) connection.release();
   }
 };

@@ -8,21 +8,26 @@
   <body>
     <div class="container">
       <div class="row">
-        <div class="col-6">
+        <div class="col-lg-6">
           <h3>2015 NYPD Stop/Frisk Data Grapher</h3>
         </div>
-        <div class="col-6">
-          <form class="form-inline">
+      </div>
+      <div class="row">
+        <div class="col-lg-6">
+          <form class="form" id="paramForm">
             <div class="form-group">
-              <label for="paramId">Enter Crime Code:</label>
-              <select id="paramId" class="form-control"></select>
+              <label for="filterBy">Filter By:</label>
+              <select id="filterBy" class="form-control" multiple style="height: 200px;"></select>
+            </div>
+            <div id="filterByGroups"></div>
+            <div class="form-group">
+              <label for="sortBy">Sort By:</label>
+              <select id="sortBy" class="form-control"></select>
             </div>
             <button id="resultBtn" class="btn btn-default">Click for Result</button>
           </form>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-12">
+        <div class="col-lg-6">
           <h4>Result:</h4>
           <p id="resultDiv"></p>
           <div id="resultGraphDiv"></div>
