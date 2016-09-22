@@ -1,3 +1,17 @@
+## Notes
+- 2016/09/22:
+- This is a work in progress.
+- Current functionality is only for the year 2015.
+- [D3.js](https://d3js.org/) generates all graphs as SVGs on the server side so you can right-click and 'Save As' in the browser.
+- To-dos include:
+    - More efficient label importing (currently importing them from both an in-repo .csv and the db)
+    - Label popups on hover for easier reading
+    - Better organization of data
+    - Filter by text matching (for fields without set values)
+    - Show other years, graphing across years
+
+---
+
 ## How to run locally
 - Make sure you have [MySQL](https://www.mysql.com/) installed
     - https://dev.mysql.com/doc/refman/5.7/en/postinstallation.html
