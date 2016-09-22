@@ -1,9 +1,23 @@
-## How to run
-- Create mysql database (config template uses localhost and db named 'stopfrisk')
+## How to run locally
+- Make sure you have [MySQL](https://www.mysql.com/) installed
+    - https://dev.mysql.com/doc/refman/5.7/en/postinstallation.html
+    - https://dev.mysql.com/doc/refman/5.7/en/default-privileges.html
+    - Assuming you've installed it locally (you'll be given a temporary password):
+    - **cd /usr/local/mysql**
+    - **bin/mysql -u root -p**
+    - [enter temporary password at prompt]
+    - **ALTER USER 'root'@'localhost' IDENTIFIED BY '[new password]';**
+    - **exit**
+    - (After setting these basics up, I usually use a GUI like [Sequel Pro](http://www.sequelpro.com/) or [MySQL Workbench](https://www.mysql.com/products/workbench/) to import tables and run commands)
+- Create a MySQL database (config template uses localhost and a db named 'stopfrisk')
 - Get 2015 csv zip archive from [NYPD Stop, Question and Frisk Report Database](http://www.nyc.gov/html/nypd/html/analysis_and_planning/stop_question_and_frisk_report.shtml) and unzip it
 - Import 2015_sqf_csv.csv into db as table named '2015stopfrisk'
 - Import /svc/labels/2015labels_value.csv into db as table named '2015labels_value'
-- Add a config.js and credentials.js to /common (see templates, use your own db host/database and credentials)
+- Add a config.js and credentials.js to /common
+    - (see templates, use your own db host/database and credentials)
+- Make sure you've got [Node.js](https://nodejs.org/en/) installed (I'm using v5.11.0)
+- In terminal, go to the root level of this directory (**cd ~/[path to repo]/nypd-stopfrisk**)
+- **npm install**
 - **npm start**
 - **grunt** in another window to watch for changes
 - If running locally, visit localhost:8080 in your browser
