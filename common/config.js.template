@@ -1,0 +1,12 @@
+var credentials = require('./credentials');
+
+module.exports = {
+  mysql: {
+    connectionLimit: 10,
+    host: 'localhost',
+    database: 'stopfrisk',
+    user: credentials.mysql.username,
+    password: credentials.mysql.password,
+    multipleStatements: true
+  }
+};
