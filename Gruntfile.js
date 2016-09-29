@@ -25,7 +25,7 @@ module.exports = grunt => {
       },
       browserify: {
         files: 'js/*.js',
-        tasks: ['default']
+        tasks: ['browserify']
       },
       livereload: {
         files: ['*.js', '*.html', 'scss/*.scss'],
@@ -34,8 +34,8 @@ module.exports = grunt => {
     }
   });
 
-  grunt.registerTask('default', ['browserify', 'watch']);
-  grunt.registerTask('dev', ['sass']);
+  grunt.registerTask('default', ['browserify', 'sass']);
+  grunt.registerTask('dev', ['watch']);
   grunt.loadNpmTasks('grunt-sass');
   grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks('grunt-contrib-watch');
