@@ -7,12 +7,7 @@ build
 npm-debug.log
 
 # Config/Credentials
-credentials.js
-credentials.local.js
-credentials.staging.js
-credentials.production.js
-config.js
-config.local.js
+.env
 
 public/main.*
 generated
