@@ -5,7 +5,7 @@ exports.getPieGraph = (req, res, next)=> {
   try {
     d3utils.generatePieGraph(res, req.query);
   } catch (e) {
-    console.log(e);
+    console.error(e);
     next(err(500), 'getPieGraph error:' + e, null);
   }
 }

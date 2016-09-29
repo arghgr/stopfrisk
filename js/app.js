@@ -64,7 +64,6 @@ document.addEventListener('DOMContentLoaded', ()=> {
       added.forEach(opt => {
         if (!document.getElementById('filterBy-' + opt + '-group')) {
           addFilterGroup('filterBy', fieldsMap[opt], labels.fieldValues[opt]);
-          // console.log('added filterBy-' + opt + '-group');
         }
       });
 
@@ -75,7 +74,6 @@ document.addEventListener('DOMContentLoaded', ()=> {
             document.getElementById('filterBy-' + opt + '-group')
           );
         }
-        // console.log('removed filterBy-' + opt + '-group');
       });
 
       opts = newOpts;
@@ -103,7 +101,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
       document.getElementById('resultGraphDiv').innerHTML = JSON.parse(JSON.stringify(graphData));
     })
     .catch(error => {
-      console.log('error: ', error);
+      console.error('error: ', error);
     });
   });
 });
@@ -145,7 +143,7 @@ function getFilterOptions(filter, year) {
 
 function getLabels(year) {
   return new Promise((resolve, reject)=> {
-    console.log('getLabels() req year: ', year);
+    if (DEBUG) console.log('getLabels() req year: ', year);
     request
     .get('/svc/labels/')
     .query({ year: year })
