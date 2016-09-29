@@ -5,9 +5,7 @@
   "description": "visualizing stop and frisk data",
   "main": "index.js",
   "scripts": {
-    "install": "npm install",
-    "start": "node server.js",
-    "poststart": "grunt"
+    "start": "node server.js"
   },
   "author": "arghgr",
   "license": "ISC",
