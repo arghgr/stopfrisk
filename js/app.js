@@ -1,7 +1,7 @@
 var config = require('../common/config');
 var request = require('superagent');
 
-var DEBUG = (isProduction) ? false : true;
+var DEBUG = false;
 
 document.addEventListener('DOMContentLoaded', ()=> {
 
