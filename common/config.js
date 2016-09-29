@@ -1,4 +1,4 @@
-require('dotenv').load(); // Load .env for development vars
+if (process.env.IS_PRODUCTION) == false) require('dotenv').load(); // Load .env for development vars
 
 module.exports = {
   isProduction: process.env.IS_PRODUCTION,
