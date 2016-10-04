@@ -27,11 +27,13 @@
 - Get 2015 csv zip archive from [NYPD Stop, Question and Frisk Report Database](http://www.nyc.gov/html/nypd/html/analysis_and_planning/stop_question_and_frisk_report.shtml) and unzip it
 - Import 2015_sqf_csv.csv into db as table named '2015stopfrisk'
 - Import /svc/labels/2015labels_value.csv into db as table named '2015labels_value'
-- Add a config.js and credentials.js to /common
-    - (see templates, use your own db host/database and credentials)
+- Add a .env file with config vars to the main directory
+    - (see .env.template, use your own database and credentials)
+- Set IS_PRODUCTION to false: **export IS_PRODUCTION=false**
+    - (if true, the app will look for config vars in the real shell instead of the .env file)
 - Make sure you've got [Node.js](https://nodejs.org/en/) installed (I'm using v5.11.0)
 - In terminal, go to the root level of this directory (**cd ~/[path to repo]/nypd-stopfrisk**)
 - **npm install**
-- **npm start**
+- **npm start** (if you didn't permanently export IS_PRODUCTION, set it now: **IS_PRODUCTION=false npm start**)
 - **grunt** in another window to watch for changes
 - If running locally, visit localhost:8080 in your browser
